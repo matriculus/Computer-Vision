@@ -14,10 +14,10 @@ def process_img(image):
 def main():
     last_time = time.time()
     while(True):
-        screen = np.array(ImageGrab.grab(bbox=(0,60, 640,480)))
-        new_screen = process_img(screen)
+        screen = np.array(ImageGrab.grab(bbox=(0,60, 640,540)))
+        # new_screen = process_img(screen)
         last_time = time.time()
-        cv2.imshow('window', new_screen)
+        cv2.imshow('window', screen)
         if cv2.waitKey(25) & 0xFF == ord('q'):
             cv2.destroyAllWindows()
             break

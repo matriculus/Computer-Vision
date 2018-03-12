@@ -4,33 +4,35 @@ import cv2
 #import pyscreenshot as ImageGrab # Use it for linux
 import time
 import pyautogui
-import nomo
-import matplotlib.pyplot as plt
+from nomo import LaneDetector
 print("All libraries imported!")
 
-def straight():
-    pyautogui.keyDown('w')
-    pyautogui.keyUp('s')
-    pyautogui.keyUp('a')
-    pyautogui.keyUp('d')
+detector = LaneDetector()
 
-def left():
-    pyautogui.keyDown('w')
-    pyautogui.keyUp('s')
-    pyautogui.keyDown('a')
-    pyautogui.keyUp('d')
+class Vehicle:
+    def straight():
+        pyautogui.keyDown('w')
+        pyautogui.keyUp('s')
+        pyautogui.keyUp('a')
+        pyautogui.keyUp('d')
 
-def right():
-    pyautogui.keyDown('w')
-    pyautogui.keyUp('s')
-    pyautogui.keyUp('a')
-    pyautogui.keyDown('d')
+    def left():
+        pyautogui.keyDown('w')
+        pyautogui.keyUp('s')
+        pyautogui.keyDown('a')
+        pyautogui.keyUp('d')
 
-def slow():
-    pyautogui.keyUp('w')
-    pyautogui.keyUp('s')
-    pyautogui.keyUp('a')
-    pyautogui.keyUp('d')
+    def right():
+        pyautogui.keyDown('w')
+        pyautogui.keyUp('s')
+        pyautogui.keyUp('a')
+        pyautogui.keyDown('d')
+
+    def slow():
+        pyautogui.keyUp('w')
+        pyautogui.keyUp('s')
+        pyautogui.keyUp('a')
+        pyautogui.keyUp('d')
 
 def start_timer(n):
     for i in list(range(n))[::-1]:
@@ -41,23 +43,23 @@ def main():
     last_time = time.time()
     while(True):
         screen = np.array(ImageGrab.grab(bbox=(0,45, 640,525)))
-        new_screen, slopes, histogram = nomo.process_image(screen, perspective=False)
-        print(slopes)
+        new_screen = detector.process(screen)
+        #print(slopes)
         
         cv2.imshow('window', new_screen)
         # plt.plot(histogram)
         # plt.show()
-        turn = abs(slopes[0])/abs(slopes[1])-1
+        # turn = abs(slopes[0])/abs(slopes[1])-1
 
-        if turn < -0.5:
-            print("Right--->")
-            #right()
-        elif turn > 0.5:
-            print("<---Left")
-            #left()
-        else:
-            print("^Straight^")
-            #straight()
+        # if turn < -0.5:
+        #     print("Right--->")
+        #     #right()
+        # elif turn > 0.5:
+        #     print("<---Left")
+        #     #left()
+        # else:
+        #     print("^Straight^")
+        #     #straight()
         
         print('Look took {} seconds.'.format(time.time()-last_time))
         last_time = time.time()
@@ -66,6 +68,4 @@ def main():
             cv2.destroyAllWindows()
             break
 
-start_timer(3)
 main()
-
