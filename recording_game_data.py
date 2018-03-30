@@ -25,7 +25,7 @@ def key_pressed():
 	elif keyboard.is_pressed('d'):
 		print('d is pressed')
 		output[3] = 1
-	elif: keyboard.is_pressed('w'):
+	elif keyboard.is_pressed('w'):
 		print('w is pressed when none')
 		output[1] = 1
 	else:
@@ -34,7 +34,13 @@ def key_pressed():
 
 	return output
 
+def start_timer(n):
+    for i in list(range(n))[::-1]:
+        print(i+1)
+        time.sleep(1)
+
 def main():
+	start_timer(3)
 	last_time = time.time()
 	while(True):
 		screen = np.array(ImageGrab.grab(bbox=(0,45, 640,525)))
@@ -46,12 +52,13 @@ def main():
 		print(output)
 		print(time.time()-last_time)
 		last_time = time.time()
-		if len(training_data) % 10 == 0:
+		if len(training_data) % 50 == 0:
 			print(len(training_data))
 			print('Saving Data...')
 			np.save(file_name, training_data)
 
 		cv2.imshow('screen', screen)
+		cv2.moveWindow('screen', 1000, 50)
 		if cv2.waitKey(25) == ord('p'):
 			cv2.destroyAllWindows()
 			break
