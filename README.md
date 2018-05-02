@@ -17,3 +17,5 @@ https://github.com/tensorflow/models
 
 Cocoapi os given in the following link.
 https://github.com/cocodataset/cocoapi
+
+[![Watch the video](https://raw.github.com/GabLeRoux/WebMole/master/ressources/WebMole_Youtube_Video.png)](https://youtu.be/PBWxiErx7Gg)
