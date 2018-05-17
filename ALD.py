@@ -375,7 +375,7 @@ class Line():
 
 		lane_mid = (left_intcpt + right_intcpt)/2.0
 
-		car_off = lane_mid - img_size[0]/2.0
+		car_off = lane_mid - img_size[1]/2.0
 
 		# convert to meters
 		car_off *= self.xm_per_pix
